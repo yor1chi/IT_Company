@@ -8,4 +8,5 @@ public interface IEmployeeRepository {
     boolean createEmployee(Employee employee);
     Employee getEmployee(int id);
     List<Employee> getAllEmployees();
+    int totalCost();
 }

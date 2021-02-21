@@ -10,8 +10,8 @@ public class EmployeeController {
     public EmployeeController(IEmployeeRepository repository) {
         this.repository = repository;
     }
-    public String createEmployee(String name, String lastname, String birth_date, int salary) {
-        Employee employee = new Employee(name, lastname, birth_date, salary);
+    public String createEmployee(String name, String lastname, String birth_date, int salary, String post) {
+        Employee employee = new Employee(name, lastname, birth_date, salary, post);
         boolean created = repository.createEmployee(employee);
 
         return (created ? "Employee was successfully created!" : "Employee creation was failed!");
@@ -24,5 +24,9 @@ public class EmployeeController {
     public String getAllEmployees() {
         List<Employee> employees = repository.getAllEmployees();
         return employees.toString();
+    }
+    public int totalCost() {
+        int totalSalary = repository.totalCost();
+        return totalSalary;
     }
 }

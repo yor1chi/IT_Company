@@ -16,13 +16,14 @@ public class EmployeeRepository implements IEmployeeRepository {
     public boolean createEmployee(Employee employee) {
         try {
             Connection con = db.getConnection();
-            String sql = "INSERT INTO employee(fname, lname, birth_date, salary) VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO employee(fname, lname, birth_date, salary, post) VALUES(?, ?, ?, ?, ?)";
             PreparedStatement st = con.prepareStatement(sql);
 
             st.setString(1, employee.getFirstname());
             st.setString(2, employee.getLastname());
             st.setString(3, employee.getBirth_date());
             st.setInt(4, employee.getSalary());
+            st.setString(5, employee.getPost());
             boolean executed = st.execute();
             con.close();
             return executed;
@@ -47,6 +48,7 @@ public class EmployeeRepository implements IEmployeeRepository {
                 rs.getString("fname"),
                 rs.getString("lname"),
                 rs.getString("birth_date"),
+                rs.getString("post"),
                 rs.getInt("salary"));
                 con.close();
                 return employee;
@@ -71,7 +73,9 @@ public class EmployeeRepository implements IEmployeeRepository {
                 rs.getString("fname"),
                 rs.getString("lname"),
                 rs.getString("birth_date"),
+                rs.getString("post"),
                 rs.getInt("salary"));
+
                 employees.add(employee);
                 con.close();
             }
@@ -81,5 +85,25 @@ public class EmployeeRepository implements IEmployeeRepository {
             throwables.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public int totalCost() {
+        int totalSalary = 0;
+        try {
+            Connection con = db.getConnection();
+            String sql = "select salary from employee";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                totalSalary += rs.getInt("salary");
+                con.close();
+            }
+            return totalSalary;
+        }
+        catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+        return totalSalary;
     }
 }

@@ -1,22 +1,32 @@
 package com.company.entities;
 
 public class Employee {
-    private String firstname, lastname, birth_date;
+    private String firstname, lastname, birth_date, post;
     private int id, salary;
 
-    public Employee(int id, String name, String lastname, String birth_date, int salary) {
-        setId(id);
+    public Employee(int employee_id, String fname, String lname, String birth_date, String post, int salary) {
         setBirth_date(birth_date);
-        setFirstname(name);
-        setLastname(lastname);
+        setFirstname(fname);
+        setLastname(lname);
         setSalary(salary);
+        setPost(post);
     }
 
-    public Employee(String name, String lastname, String birth_date, int salary) {
+    public Employee(String name, String lastname, String birth_date, int salary, String post) {
         setBirth_date(birth_date);
         setFirstname(name);
         setLastname(lastname);
         setSalary(salary);
+        setPost(post);
+
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
     }
 
     public String getFirstname() {
@@ -58,11 +68,12 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                ", id=" + id +
-                "First name='" + firstname + '\'' +
+                "Id= " + id +
+                ", First name='" + firstname + '\'' +
                 ", Last name='" + lastname + '\'' +
                 ", Birth date='" + birth_date + '\'' +
                 ", salary=" + salary +
+                ", post=" + post +
                 '}';
     }
 }

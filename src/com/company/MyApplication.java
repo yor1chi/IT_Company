@@ -20,10 +20,11 @@ public class MyApplication {
             System.out.println("1. Get all employees");
             System.out.println("2. Get employee by id");
             System.out.println("3. Create employee");
+            System.out.println("4. Calculate total salary of all employees");
             System.out.println("0. Exit");
             System.out.println();
             try {
-                System.out.print("Enter the option 0-3: ");
+                System.out.print("Enter the option 0-4: ");
                 int option = scanner.nextInt();
                 if (option == 1) {
                     getAllEmployeesMenu();
@@ -33,6 +34,9 @@ public class MyApplication {
                 }
                 else if (option == 3) {
                     createEmployeeMenu();
+                }
+                else if (option == 4) {
+                    totalCostMenu();
                 }
                 else {
                     break;
@@ -63,10 +67,16 @@ public class MyApplication {
         String surname = scanner.next();
         System.out.print("Enter the birth date: ");
         String birth_date = scanner.next();
+        System.out.print("Enter the post: ");
+        String post = scanner.next();
         System.out.print("Enter the salary: ");
         int salary = scanner.nextInt();
 
-        String response = controller.createEmployee(name, surname, birth_date, salary);
+        String response = controller.createEmployee(name, surname, birth_date, salary, post);
         System.out.println(response);
+    }
+    public void totalCostMenu() {
+        int response = controller.totalCost();
+        System.out.println("Total salary of all employees is: " + response);
     }
 }
